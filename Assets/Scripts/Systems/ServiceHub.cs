@@ -12,27 +12,22 @@ public class ServiceHub : MonoBehaviour
     // But is a simple useful pattern for beginner programmers for small to mid-sized projects.
 
     // The static instance that makes this globally accessible
+
     public static ServiceHub Instance { get; private set; }
 
-
-
-
+    public GameStateManager GameStateManager;
+    public UIManager UIManager;
 
     private void Awake()
     {
-        #region Singleton Pattern
-
-        // Simple singleton setup for a single-scene game
         if (Instance != null && Instance != this)
         {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
+            Destroy(gameObject);
+            return;
         }
 
-        #endregion
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
 
