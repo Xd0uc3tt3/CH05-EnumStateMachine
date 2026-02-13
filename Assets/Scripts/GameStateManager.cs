@@ -122,5 +122,15 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
+    public void OpenOptions()
+    {
+        uiManager.ShowOptionsUI();
+    }
+
+    public void CloseOptions()
+    {
+        SetState(previousState);
+    }
+
 
 }
