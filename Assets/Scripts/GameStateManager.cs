@@ -161,4 +161,9 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+        //added to this script so i didnt have to make another one
+    }
 }
