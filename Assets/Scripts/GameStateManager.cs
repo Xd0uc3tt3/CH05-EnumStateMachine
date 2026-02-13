@@ -13,7 +13,8 @@ public enum GameState
 public class GameStateManager : MonoBehaviour
 {
 
-    [SerializeField] UIManager UIManager;
+    private UIManager uiManager;
+
     public GameState currentState { get; private set; }
     public GameState previousState { get; private set; }
 
@@ -24,7 +25,7 @@ public class GameStateManager : MonoBehaviour
 
     private void Start()
     {
-        UIManager = ServiceHub.Instance.UIManager;
+        uiManager = ServiceHub.Instance.UIManager;
         SetState(GameState.Init);
     }
 
@@ -55,17 +56,17 @@ public class GameStateManager : MonoBehaviour
 
             case GameState.MainMenu:
                 Debug.Log("GameState Changed to MainMenu");
-                UIManager.ShowMainMenuUI();
+                uiManager.ShowMainMenuUI();
                 break;
 
             case GameState.Gameplay:
                 Debug.Log("GameState Changed to GamePlay");
-                UIManager.ShowGameplayUI();
+                uiManager.ShowGameplayUI();
                 break;
 
             case GameState.Paused:
                 Debug.Log("GameState Changed to Paused");
-                UIManager.ShowPausedUI();
+                uiManager.ShowPausedUI();
                 break;
 
             default:
@@ -73,6 +74,11 @@ public class GameStateManager : MonoBehaviour
 
 
         }
+    }
+
+    public void GoToGameplay()
+    {
+        SetState(GameState.Gameplay);
     }
 
 
