@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum GameState
 {
@@ -14,6 +15,7 @@ public class GameStateManager : MonoBehaviour
 {
 
     private UIManager uiManager;
+    private PlayerInputActions inputActions;
 
     public GameState currentState { get; private set; }
     public GameState previousState { get; private set; }
@@ -22,6 +24,22 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private string previousActiveState;
 
 
+    private void Awake()
+    {
+        inputActions = new PlayerInputActions();
+    }
+
+    private void OnEnable()
+    {
+        inputActions.Enable();
+        inputActions.Player.Pause.performed += OnPausePressed;
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Player.Pause.performed -= OnPausePressed;
+        inputActions.Disable();
+    }
 
     private void Start()
     {
@@ -56,16 +74,19 @@ public class GameStateManager : MonoBehaviour
 
             case GameState.MainMenu:
                 Debug.Log("GameState Changed to MainMenu");
+                Time.timeScale = 1f;
                 uiManager.ShowMainMenuUI();
                 break;
 
             case GameState.Gameplay:
                 Debug.Log("GameState Changed to GamePlay");
+                Time.timeScale = 1f;
                 uiManager.ShowGameplayUI();
                 break;
 
             case GameState.Paused:
                 Debug.Log("GameState Changed to Paused");
+                Time.timeScale = 0f;
                 uiManager.ShowPausedUI();
                 break;
 
@@ -79,6 +100,26 @@ public class GameStateManager : MonoBehaviour
     public void GoToGameplay()
     {
         SetState(GameState.Gameplay);
+    }
+
+
+
+    private void OnPausePressed(InputAction.CallbackContext context)
+    {
+        Debug.Log("Pause pressed!");
+        TogglePause();
+    }
+
+    public void TogglePause()
+    {
+        if (currentState == GameState.Gameplay)
+        {
+            SetState(GameState.Paused);
+        }
+        else if (currentState == GameState.Paused)
+        {
+            SetState(GameState.Gameplay);
+        }
     }
 
 
