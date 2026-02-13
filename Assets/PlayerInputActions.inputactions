@@ -42,6 +42,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "GameOver",
+                    "type": "Button",
+                    "id": "25013915-fa9d-452a-a412-bc0b9f375073",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -53,6 +62,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a3240954-096c-43ca-b3af-0b216bd0ea71",
+                    "path": "<Keyboard>/8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GameOver",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

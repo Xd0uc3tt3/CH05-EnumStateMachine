@@ -7,7 +7,9 @@ public enum GameState
     Init,
     MainMenu,
     Gameplay,
-    Paused
+    Paused,
+    Options,
+    GameOver
 
 }
 
@@ -33,11 +35,13 @@ public class GameStateManager : MonoBehaviour
     {
         inputActions.Enable();
         inputActions.Player.Pause.performed += OnPausePressed;
+        inputActions.Player.GameOver.performed += OnGameOverPressed;
     }
 
     private void OnDisable()
     {
         inputActions.Player.Pause.performed -= OnPausePressed;
+        inputActions.Player.GameOver.performed -= OnGameOverPressed;
         inputActions.Disable();
     }
 
@@ -90,6 +94,18 @@ public class GameStateManager : MonoBehaviour
                 uiManager.ShowPausedUI();
                 break;
 
+            case GameState.Options:
+                Debug.Log("GameState Changed to Options");
+                Time.timeScale = 0f;
+                uiManager.ShowOptionsUI();
+                break;
+
+            case GameState.GameOver:
+                Debug.Log("GameState Changed to Game Over");
+                Time.timeScale = 0f;
+                uiManager.ShowGameOverUI();
+                break;
+
             default:
                 break;
 
@@ -132,5 +148,17 @@ public class GameStateManager : MonoBehaviour
         SetState(previousState);
     }
 
+    public void GoToMainMenu()
+    {
+        SetState(GameState.MainMenu);
+    }
+
+    private void OnGameOverPressed(InputAction.CallbackContext context)
+    {
+        if (currentState == GameState.Gameplay)
+        {
+            SetState(GameState.GameOver);
+        }
+    }
 
 }

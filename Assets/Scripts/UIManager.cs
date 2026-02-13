@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
 
     public void ShowPausedUI()
     {
-        HideAllUI();
+        
 
         pausedUI.SetActive(true);
     }
@@ -35,12 +35,19 @@ public class UIManager : MonoBehaviour
         OptionsUI.SetActive(true);
     }
 
+    public void ShowGameOverUI()
+    {
+        HideAllUI();
+        GameOverUI.SetActive(true);
+    }
+
     public void HideAllUI()
     {
         gameplayUI.SetActive(false);
         pausedUI.SetActive(false);
         MainMenuUI.SetActive(false);
         OptionsUI.SetActive(false);
+        GameOverUI.SetActive(false);
     }
 
 }

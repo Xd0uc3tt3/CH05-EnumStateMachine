@@ -128,6 +128,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GameOver"",
+                    ""type"": ""Button"",
+                    ""id"": ""25013915-fa9d-452a-a412-bc0b9f375073"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -139,6 +148,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3240954-096c-43ca-b3af-0b216bd0ea71"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GameOver"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -153,6 +173,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_GameOver = m_Player.FindAction("GameOver", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -331,6 +352,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_GameOver;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -346,6 +368,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Pause".
         /// </summary>
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/GameOver".
+        /// </summary>
+        public InputAction @GameOver => m_Wrapper.m_Player_GameOver;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -375,6 +401,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @GameOver.started += instance.OnGameOver;
+            @GameOver.performed += instance.OnGameOver;
+            @GameOver.canceled += instance.OnGameOver;
         }
 
         /// <summary>
@@ -389,6 +418,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @GameOver.started -= instance.OnGameOver;
+            @GameOver.performed -= instance.OnGameOver;
+            @GameOver.canceled -= instance.OnGameOver;
         }
 
         /// <summary>
@@ -451,5 +483,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPause(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "GameOver" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnGameOver(InputAction.CallbackContext context);
     }
 }
